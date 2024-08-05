@@ -144,7 +144,6 @@ func CreateTypeAlias(srcDir string, targetDir string, debug bool) error {
 		}
 
 		if path == modelsFilePath {
-			fmt.Println("hello world")
 			return nil
 		}
 		if !info.IsDir() && filepath.Ext(path) == ".go" {
