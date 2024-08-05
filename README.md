@@ -18,3 +18,30 @@ sqlcube
 ```
 
 Using the --debug flag will print out all changes done.
+
+
+## Example Yamls
+
+sqlc.yaml
+```
+version: "2"
+sql:
+  - engine: "mysql"
+    queries: "./db/query"
+    schema: "./db/migration/" #schema in this folder
+    gen:
+      go:
+        emit_enum_valid_method: true
+        package: "example/models"
+        out: "example" 
+       # sql_package: "mysql" #go
+```
+
+sqlcube.yaml
+
+```yaml
+version: "1"
+go:
+  source: "sqlc"
+  target: "result"
+```
