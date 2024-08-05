@@ -23,7 +23,7 @@ Using the --debug flag will print out all changes done.
 ## Example Yamls
 
 sqlc.yaml
-```
+```yaml
 version: "2"
 sql:
   - engine: "mysql"
