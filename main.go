@@ -30,6 +30,7 @@ func main() {
 		PrintAndExit(err)
 	case "generate":
 		err = GenerateSqlc(cfg.Generation)
+		PrintAndExit(err)
 	default:
 		PrintAndExit(fmt.Errorf("unknown command %s", command))
 	}
