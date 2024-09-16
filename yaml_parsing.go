@@ -30,19 +30,28 @@ func parseSqlcYaml(f io.ReadCloser) (folderPath string, err error) {
 }
 
 type CubeConfig struct {
-	Version string `yaml:"version"`
-	Go      struct {
-		Source string `yaml:"source"`
-		Target string `yaml:"target"`
-	} `yaml:"go"`
+	Version    string           `yaml:"version"`
+	Go         GoConfig         `yaml:"go"`
+	Generation GenerationConfig `yaml:"generation"`
 }
 
-func parseSqlCube(f io.ReadCloser) (src, target string, err error) {
-	var cfg CubeConfig
+type GoConfig struct {
+	Source string `yaml:"source"`
+	Target string `yaml:"target"`
+}
+
+type GenerationConfig struct {
+	Views      string `yaml:"views"`
+	Procedures string `yaml:"procedures"`
+	Schema     string `yaml:"schema"`
+	Target     string `yaml:"target"`
+}
+
+func parseSqlCube(f io.ReadCloser) (cfg CubeConfig, err error) {
 	decoder := yaml.NewDecoder(f)
 	err = decoder.Decode(&cfg)
 	if err != nil {
-		return "", "", err
+		return
 	}
-	return cfg.Go.Source, cfg.Go.Target, nil
+	return cfg, nil
 }

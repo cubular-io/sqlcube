@@ -1,6 +1,7 @@
 package main
 
 import (
+	"errors"
 	"flag"
 	"fmt"
 	"os"
@@ -9,37 +10,36 @@ import (
 func main() {
 
 	debugFlag := flag.Bool("debug", false, "enable debug mode")
+	if len(os.Args) < 2 {
+		PrintAndExit(errors.New("provide argument generate or reduce"))
+	}
+
+	command := os.Args[1]
+
 	flag.Parse()
+	f, err := os.Open("sqlcube.yaml")
+	if err != nil {
+		PrintAndExit(fmt.Errorf("sqlcube.yaml open error: %s", err.Error()))
+	}
+	cfg, err := parseSqlCube(f)
+	PrintAndExit(err)
 
-	if f, err := os.Open("sqlcube.yaml"); err == nil {
-		src, target, err := parseSqlCube(f)
-		if err != nil {
-			PrintAndExit(err)
-		}
-		err = CreateTypeAlias(src, target, *debugFlag)
-		if err != nil {
-			PrintAndExit(err)
-		}
-		os.Exit(0)
+	switch command {
+	case "reduce":
+		err = CreateTypeAlias(cfg.Go.Source, cfg.Go.Target, *debugFlag)
+		PrintAndExit(err)
+	case "generate":
+		err = GenerateSqlc(cfg.Generation)
+	default:
+		PrintAndExit(fmt.Errorf("unknown command %s", command))
 	}
 
-	if f, err := os.Open("sqlc.yaml"); err == nil {
-		source, err := parseSqlcYaml(f)
-		if err != nil {
-			PrintAndExit(err)
-		}
-		err = CreateTypeAlias(source, source, *debugFlag)
-		if err != nil {
-			PrintAndExit(err)
-		}
-		os.Exit(0)
-	}
-
-	fmt.Println("Error Neither sqlcube.yaml, nor sqlc.yaml found")
-	os.Exit(1)
+	os.Exit(0)
 }
 
 func PrintAndExit(err error) {
-	fmt.Println(err)
-	os.Exit(1)
+	if err != nil {
+		fmt.Println(err)
+		os.Exit(1)
+	}
 }

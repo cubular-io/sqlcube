@@ -1,7 +1,7 @@
 version: "1"
 go:
-  source: "sqlc"
-  target: "result"
+  source: "example/sqlc"
+  target: "example/result"
 generation:
   views: "example_schema/views"
   procedures: "example_schema/procedures"
