@@ -9,39 +9,32 @@ go install github.com/cubular-io/sqlcube@latest
 
 ## Use
 
-sqlcube look for a file sqlcube.yaml with source and target folder.
-If not available, it will use the sqlc.yaml source to get source and target.
-Only sqlc.yaml version 2 is supported
+sqlcube reduce look for a file sqlcube.yaml with source and target folder.
 
 ```bash 
-sqlcube
+sqlcube reduce
 ```
 
-Using the --debug flag will print out all changes done.
+sqlcube generate looks for views,procedures and schema folder, deletes the target folder, and recreates it and copys
+schema folder, than sums up the views and add it to the target folder as a file called x_views.sql, does the same for
+z_procedures.
 
-
-## Example Yamls
-
-sqlc.yaml
-```yaml
-version: "2"
-sql:
-  - engine: "mysql"
-    queries: "./db/query"
-    schema: "./db/migration/" #schema in this folder
-    gen:
-      go:
-        emit_enum_valid_method: true
-        package: "example/models"
-        out: "example" 
-       # sql_package: "mysql" #go
+```bash
+sqlcube generate
 ```
 
+
+## Example Yaml
 sqlcube.yaml
 
 ```yaml
 version: "1"
 go:
-  source: "sqlc"
-  target: "result"
+  source: "example/sqlc"
+  target: "example/result"
+generation:
+  views: "example_schema/views"
+  procedures: "example_schema/procedures"
+  schema: "example_schema/migrations"
+  target: "example_schema/sqlc"
 ```
