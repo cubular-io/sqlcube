@@ -6,4 +6,4 @@ generation:
   views: "example_schema/views"
   procedures: "example_schema/procedures"
   schema: "example_schema/migrations"
-  target: "example_schema/sqlc"
+  target: "example_schema/migrations"
