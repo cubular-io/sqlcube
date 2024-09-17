@@ -14,19 +14,22 @@ func GenerateSqlc(cfg GenerationConfig) error {
 	}
 
 	// Step 0: Delete Folder
-	err := os.RemoveAll(cfg.Target)
-	if err != nil {
-		return err
+	if cfg.Schema != cfg.Target {
+		err := os.RemoveAll(cfg.Target)
+		if err != nil {
+			return err
+		}
 	}
 
 	// Step 1: Copy Schema folder to Target folder
-	err = copyDir(cfg.Schema, cfg.Target)
-	if err != nil {
-		return fmt.Errorf("failed to copy schema: %v", err)
+	if cfg.Schema != cfg.Target {
+		err := copyDir(cfg.Schema, cfg.Target)
+		if err != nil {
+			return fmt.Errorf("failed to copy schema: %v", err)
+		}
 	}
-
 	// Step 2: Create x_views.sql in target folder
-	err = createSQLFile(cfg.Views, filepath.Join(cfg.Target, "x_views.sql"))
+	err := createSQLFile(cfg.Views, filepath.Join(cfg.Target, "x_views.sql"))
 	if err != nil {
 		return fmt.Errorf("failed to create x_views.sql: %v", err)
 	}
