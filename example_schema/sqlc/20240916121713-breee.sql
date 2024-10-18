@@ -8,4 +8,5 @@ CREATE TABLE Orders (
                         FOREIGN KEY (CustomerID) REFERENCES Customers(CustomerID)
 );
 
+
 -- +migrate Down

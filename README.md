@@ -35,6 +35,7 @@ go:
 generation:
   views: "example_schema/views"
   procedures: "example_schema/procedures"
+  triggers": "example_schema/triggers"
   schema: "example_schema/migrations"
   target: "example_schema/sqlc"
 ```

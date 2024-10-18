@@ -5,6 +5,7 @@ CREATE TABLE Customers (
                            FirstName VARCHAR(50),
                            LastName VARCHAR(50),
                            Email VARCHAR(100),
-                           SignupDate DATETIME
+                           SignupDate DATETIME,
+                            TotalOrders INT DEFAULT 0 NOT NULL
 );
 -- +migrate Down

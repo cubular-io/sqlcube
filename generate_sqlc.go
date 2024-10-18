@@ -40,6 +40,12 @@ func GenerateSqlc(cfg GenerationConfig) error {
 		return fmt.Errorf("failed to create z_procedures.sql: %v", err)
 	}
 
+	if cfg.Triggers != "" {
+		err = createSQLFile(cfg.Triggers, filepath.Join(cfg.Target, "z_triggers.sql"))
+		if err != nil {
+			return fmt.Errorf("failed to create z1_triggers.sql: %v", err)
+		}
+	}
 	return nil
 }
 

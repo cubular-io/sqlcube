@@ -43,6 +43,7 @@ type GoConfig struct {
 type GenerationConfig struct {
 	Views      string `yaml:"views"`
 	Procedures string `yaml:"procedures"`
+	Triggers   string `yaml:"triggers"`
 	Schema     string `yaml:"schema"`
 	Target     string `yaml:"target"`
 }
