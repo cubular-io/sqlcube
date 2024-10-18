@@ -5,6 +5,6 @@ go:
 generation:
   views: "example_schema/views"
   procedures: "example_schema/procedures"
-  triggers: "example_schema/triggers"
+  triggers: "example_schema/triggers" # an empty folder "" results in not trigger file being created
   schema: "example_schema/migrations"
   target: "example_schema/migrations"

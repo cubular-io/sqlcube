@@ -4,7 +4,7 @@ A simple golang tool, that reduces the size of sqlc code generation by replacing
 ## Install
 
 ```bash
- go install github.com/cubular-io/sqlcube@0.2.1
+ go install github.com/cubular-io/sqlcube@0.2.2
 ```
 
 ## Use
@@ -35,7 +35,7 @@ go:
 generation:
   views: "example_schema/views"
   procedures: "example_schema/procedures"
-  triggers": "example_schema/triggers"
+  triggers": "example_schema/triggers" # an empty folder "" results in not trigger file being created
   schema: "example_schema/migrations"
   target: "example_schema/sqlc"
 ```
