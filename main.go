@@ -7,6 +7,8 @@ import (
 	"os"
 )
 
+const Version = "0.3"
+
 func main() {
 
 	debugFlag := flag.Bool("debug", false, "enable debug mode")
@@ -31,6 +33,8 @@ func main() {
 	case "generate":
 		err = GenerateSqlc(cfg.Generation)
 		PrintAndExit(err)
+	case "version":
+		fmt.Println("sqlcube version", Version)
 	default:
 		PrintAndExit(fmt.Errorf("unknown command %s", command))
 	}

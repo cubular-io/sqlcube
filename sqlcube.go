@@ -5,7 +5,6 @@ import (
 	"crypto/sha256"
 	"fmt"
 	"go/ast"
-	"go/format"
 	"go/parser"
 	"go/printer"
 	"go/token"
@@ -13,6 +12,8 @@ import (
 	"path"
 	"path/filepath"
 	"strings"
+
+	"golang.org/x/tools/imports"
 )
 
 // StructField represents a field in a struct
@@ -101,7 +102,12 @@ func changeStructAndPrint(filename string, targetDir string, mp map[string]strin
 			return mp, err
 		}
 
-		formatedBytes, err := format.Source(buf.Bytes())
+		formatedBytes, err := imports.Process(filename, buf.Bytes(), &imports.Options{
+			Comments:   true,
+			TabIndent:  true,
+			TabWidth:   8,
+			FormatOnly: false,
+		})
 		if err != nil {
 			return mp, err
 		}
