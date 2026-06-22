@@ -4,7 +4,7 @@ A simple golang tool, that reduces the size of sqlc code generation by replacing
 ## Install
 
 ```bash
- go install github.com/cubular-io/sqlcube@0.2.2
+ go install github.com/cubular-io/sqlcube@0.3
 ```
 
 ## Use
